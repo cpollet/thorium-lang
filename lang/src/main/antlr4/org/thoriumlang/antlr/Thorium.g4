@@ -25,30 +25,58 @@
 grammar Thorium;
 
 TYPE    : 'type';
+DEFINE  : 'define';
 EXTENDS : 'extends';
 ALIAS   : 'alias';
 
 // starting point for parsing a thorium inputStream
 compilationUnit
-    : typeDeclaration* EOF
+    : (typeDeclaration | classDeclaration)* EOF
     ;
 
 typeDeclaration
-    : TYPE type ':' typeMethods
-    | TYPE type EXTENDS typeList? ':' typeMethods
-    | TYPE UCFirstIdentifier ALIAS type
+    : TYPE UCFirstIdentifier ALIAS type
+    | TYPE type (EXTENDS typeList)? ':' methodDeclarationList
     ;
 type
     : UCFirstIdentifier ('<' typeList '>')?
-    ;
-typeMethods
-    : typeMethod (',' typeMethod)*
-    ;
-typeMethod
-    : LCFirstIdentifier '(' typeList? ')' '->' type
+    | type '->' type
+    | '(' typeList? ')' '->' type
     ;
 typeList
     : type (',' type)*
+    ;
+methodDeclarationList
+    : methodDeclaration (',' methodDeclaration)*
+    ;
+methodDeclaration
+    : LCFirstIdentifier '(' typeList? ')' '->' type
+    ;
+
+classDeclaration
+    : DEFINE UCFirstIdentifier ('<' typeList '>')? ':' typeList classDefaultConstructor? '{' methodImplementationList? '}'
+    ;
+
+classDefaultConstructor
+    : '(' methodParameterList? ')'
+    ;
+
+methodParameterList
+    : methodParameter (',' methodParameter)*
+    ;
+methodParameter
+    : type LCFirstIdentifier
+    ;
+
+methodImplementationList
+    : methodImplementation+
+    ;
+methodImplementation
+    : LCFirstIdentifier '(' methodParameterList? ')' '->' methodBody
+    ;
+methodBody
+    : '...'
+    | '{' '}'
     ;
 
 //typeDisjunction
@@ -73,4 +101,8 @@ LCFirstIdentifier
 
 WS
     : [ \t\r\n\u000C]+ -> skip
+    ;
+
+LINE_COMMENT
+    : '//' ~[\r\n]* -> skip
     ;
