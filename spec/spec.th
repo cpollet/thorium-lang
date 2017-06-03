@@ -1,0 +1,75 @@
+// keywords
+type
+define
+extends
+
+
+// type definition
+type Shape :
+  area() -> Float,
+  perimeter() -> Float
+
+type Car extends Vehicle :
+  startEngine() -> Void,
+  stopEngine() -> Void
+
+type B alias A          // A is now known as B
+type A alias B | C      // A is either B or C
+type A alias B & C      // A is both B and C (kind of A extends B, C)
+
+// generics
+type List<T> :
+  add(T) -> List<T>
+  get(Integer) -> T
+
+// predefined types
+type Void
+type Any
+type Boolean
+type Error : message() -> String
+type Value<T> : value() -> T
+type Runnable : run() -> Any
+
+// predefined classes
+define If<T> : Value<T>(Value<Boolean> condition, Value<T> true, Value<T> false) {
+  If(Value<Boolean> condition, Value<T> true) : If(condition, true, T$Null())
+  
+  value() -> @condition.value() ? @true.value() : @false.value()
+}
+
+// classes
+define Square : Shape(Integer width) { // this will create an attribute width of type Integer, accessible with @width
+  Square() : Square(1) // adds a new constructor without arguments
+
+  area() -> @width * @width
+  perimeter() -> 4 * @width
+}
+smallSquare = Square(2)
+
+// entrypoint
+// create an object Application of type Runnable, its run() method will be executed to start the application:
+define Application : Runnable {
+  run() -> ...
+}
+
+// syntaxic sugar
+x ? a : b is the same as If(x, a, b).value()
+
+// patern matching
+type F... -> T : apply(F...) -> T
+type T... alias List<T>
+type List<T> : head() -> T, tail() -> List<T>
+type Reducer<F, T> alias F -> T
+type Predicate<T> alias T -> Boolean
+
+type Case<I, O> : matches(Value<I>) -> Boolean, value() -> Value<O>
+define Case<I, O> : Case<I, O>(Predicate predicate, Value<O> out) {
+	matches(Value<I> value) -> @predicate.apply(value)
+	value() -> @out
+}
+
+type PatternMather<I, O> extends Value<T>
+define Switch<I, O> : PatternMatcher<I, O>(Value<I> input, Case(Predicate, O)... cases) {
+	value() -> value(cases.head(), cases.tail())
+	value(T item, List<T> list) -> item.matches(@input) ? item.value() : value(list.head(), list.tail())
+}

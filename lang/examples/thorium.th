@@ -1,0 +1,9 @@
+type A : m() -> A
+type A : m() -> A, m() -> A
+type A : m(A) -> A
+type A : m(A, A) -> A
+type A extends A : m() -> A
+type A extends A, A : m() -> A
+type A extends A, A : m(A, A) -> A, m(A, A) -> A
+type A<A, A> extends A, A<A, A> : m(A) -> A, m(A<A, A>) -> A<A, A>
+type A alias B<B>
