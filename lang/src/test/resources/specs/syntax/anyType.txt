@@ -1,0 +1,40 @@
+anyType
+
+A
+(anyType (valueType A))
+
+A<A>
+(anyType (valueType A < (typeList (anyType (valueType A))) >))
+
+(A)
+(anyType (valueType ( (valueType A) )))
+
+(A<A>)
+(anyType (valueType ( (valueType A < (typeList (anyType (valueType A))) >) )))
+
+A -> A
+(anyType (functionType (valueType A) -> (valueType A)))
+
+(A -> A)
+(anyType (functionType ( (functionType (valueType A) -> (valueType A)) )))
+
+(A, A) -> A
+(anyType (functionType ( (typeList (anyType (valueType A)) , (anyType (valueType A))) ) -> (valueType A)))
+
+(A, A) -> (A -> A)
+(anyType (functionType ( (typeList (anyType (valueType A)) , (anyType (valueType A))) ) -> ( (functionType (valueType A) -> (valueType A)) )))
+
+A -> (A -> A)
+(anyType (functionType (valueType A) -> ( (functionType (valueType A) -> (valueType A)) )))
+
+(A -> A) -> A
+(anyType (functionType ( (functionType (valueType A) -> (valueType A)) ) -> (valueType A)))
+
+(A -> A) -> (A -> A)
+(anyType (functionType ( (functionType (valueType A) -> (valueType A)) ) -> ( (functionType (valueType A) -> (valueType A)) )))
+
+(A<A> -> A) -> (A -> A<A>)
+(anyType (functionType ( (functionType (valueType A < (typeList (anyType (valueType A))) >) -> (valueType A)) ) -> ( (functionType (valueType A) -> (valueType A < (typeList (anyType (valueType A))) >)) )))
+
+(A<A -> A> -> A<(A -> A<A, A>) -> A>) -> (A -> A)
+(anyType (functionType ( (functionType (valueType A < (typeList (anyType (functionType (valueType A) -> (valueType A)))) >) -> (valueType A < (typeList (anyType (functionType ( (functionType (valueType A) -> (valueType A < (typeList (anyType (valueType A)) , (anyType (valueType A))) >)) ) -> (valueType A)))) >)) ) -> ( (functionType (valueType A) -> (valueType A)) )))

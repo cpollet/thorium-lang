@@ -35,28 +35,48 @@ compilationUnit
     ;
 
 typeDeclaration
-    : TYPE UCFirstIdentifier ALIAS type
-    | TYPE type (EXTENDS typeList)? ':' methodDeclarationList
+    : TYPE UCFirstIdentifier ALIAS anyType
+    | TYPE valueType (EXTENDS typeList)? ':' methodDeclarationList
     ;
-type
-    : UCFirstIdentifier ('<' typeList '>')?
-    | type '->' type
-    | '(' typeList? ')' '->' type
+
+/**
+ * Type
+ */
+anyType
+    : valueType
+    | functionType
+    ;
+valueType
+    : '(' valueType ')'
+    | UCFirstIdentifier ('<' typeList '>')?
+    ;
+functionType
+    : '(' functionType ')'
+    | '(' functionType ')' '->' valueType
+    | '(' functionType ')' '->' '(' functionType ')'
+    | valueType '->' valueType
+    | valueType '->' '(' functionType ')'
+    | '(' typeList ')' '->' valueType
+    | '(' typeList ')' '->' '(' functionType ')'
     ;
 typeList
-    : type (',' type)*
+    : anyType (',' anyType)*
     ;
+
+/**
+ * Methods declaration
+ */
 methodDeclarationList
     : methodDeclaration (',' methodDeclaration)*
     ;
 methodDeclaration
-    : LCFirstIdentifier '(' typeList? ')' '->' type
+    : LCFirstIdentifier '(' typeList? ')' '->' anyType
     ;
+
 
 classDeclaration
     : DEFINE UCFirstIdentifier ('<' typeList '>')? ':' typeList classDefaultConstructor? '{' methodImplementationList? '}'
     ;
-
 classDefaultConstructor
     : '(' methodParameterList? ')'
     ;
@@ -65,7 +85,7 @@ methodParameterList
     : methodParameter (',' methodParameter)*
     ;
 methodParameter
-    : type LCFirstIdentifier
+    : anyType LCFirstIdentifier
     ;
 
 methodImplementationList
