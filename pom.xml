@@ -21,8 +21,7 @@
     </properties>
 
     <modules>
-        <module>test-helper</module>
-        <module>lang</module>
+        <module>parser</module>
     </modules>
 
     <dependencyManagement>
