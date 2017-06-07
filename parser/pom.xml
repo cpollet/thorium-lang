@@ -5,10 +5,10 @@
 
     <parent>
         <groupId>org.thoriumlang</groupId>
-        <artifactId>aggregator</artifactId>
+        <artifactId>thorium-aggregator</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>parser</artifactId>
+    <artifactId>thorium-parser</artifactId>
 
     <properties>
         <groot>compilationUnit</groot>

@@ -16,6 +16,7 @@ addons:
 install: true
 
 script:
+ - mvn clean package
  - mvn -P sonar-java org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 
 notifications:
