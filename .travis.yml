@@ -1,0 +1,29 @@
+language: java
+jdk:
+  - oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.sonar/cache
+
+addons:
+  sonarqube:
+    organization: "cpollet-github"
+    token:
+      secure: $SONARQUBE_TOKEN
+
+install: true
+
+script:
+ - mvn package
+ - mvn -P sonar-java org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+ - sonar-scanner -Dsonar.projectKey=org.thoriumlang:thoriumlang -Dsonar.projectName=thorium-lang -Dsonar.projectVersion=SNAPSHOT -Dsonar.sources=.
+
+notifications:
+  email:
+    - $NOTIFICATION_EMAIL
+
+branches:
+  only:
+    - master
