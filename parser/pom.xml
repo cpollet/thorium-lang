@@ -29,7 +29,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.14</version>
             <scope>provided</scope>
         </dependency>
 
@@ -110,7 +109,6 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>${antlr4.version}</version>
                 <executions>
                     <execution>
                         <id>antlr</id>
