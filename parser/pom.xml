@@ -13,6 +13,7 @@
     <properties>
         <groot>compilationUnit</groot>
         <gfile>${project.basedir}/examples/thorium.th</gfile>
+        <sonar.exclusions>org/thoriumlang/antlr/**/*</sonar.exclusions>
     </properties>
 
     <dependencies>
