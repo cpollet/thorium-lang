@@ -35,7 +35,7 @@ compilationUnit
     ;
 
 typeDeclaration
-    : TYPE UCFirstIdentifier ALIAS anyType
+    : TYPE UCFirstIdentifier ('<' typeList '>')? ALIAS anyType
     | TYPE valueType (EXTENDS typeList)? ':' methodDeclarationList
     ;
 

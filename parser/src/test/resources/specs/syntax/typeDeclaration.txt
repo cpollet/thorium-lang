@@ -3,6 +3,9 @@ typeDeclaration
 type A alias A
 (typeDeclaration type A alias (anyType (valueType A)))
 
+type A<A> alias A
+(typeDeclaration type A < (typeList (anyType (valueType A))) > alias (anyType (valueType A)))
+
 type A alias (A)
 (typeDeclaration type A alias (anyType (valueType ( (valueType A) ))))
 
