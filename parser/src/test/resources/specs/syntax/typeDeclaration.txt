@@ -20,3 +20,19 @@ type A alias A -> (A -> A<A>)
 
 type A alias () -> A
 (typeDeclaration type A alias (anyType (functionType ( ) -> (valueType A))))
+
+type A : noop() -> A
+(typeDeclaration type (valueType A) : (methodDeclarationList (methodDeclaration noop ( ) -> (anyType (valueType A)))))
+
+type A extends A : noop() -> A
+(typeDeclaration type (valueType A) extends (typeList (anyType (valueType A))) : (methodDeclarationList (methodDeclaration noop ( ) -> (anyType (valueType A)))))
+
+type A extends A, A : noop() -> A
+(typeDeclaration type (valueType A) extends (typeList (anyType (valueType A)) , (anyType (valueType A))) : (methodDeclarationList (methodDeclaration noop ( ) -> (anyType (valueType A)))))
+
+type A extends A->A, A->A<A, A->A> : noop(A, A<A>, A->A) -> A<A, A->A<A>>
+(typeDeclaration type (valueType A) extends (typeList (anyType (functionType (valueType A) -> (valueType A))) , (anyType (functionType (valueType A) -> (valueType A < (typeList (anyType (valueType A)) , (anyType (functionType (valueType A) -> (valueType A)))) >)))) : (methodDeclarationList (methodDeclaration noop ( (typeList (anyType (valueType A)) , (anyType (valueType A < (typeList (anyType (valueType A))) >)) , (anyType (functionType (valueType A) -> (valueType A)))) ) -> (anyType (valueType A < (typeList (anyType (valueType A)) , (anyType (functionType (valueType A) -> (valueType A < (typeList (anyType (valueType A))) >)))) >)))))
+
+type If<T> alias (Boolean, T, T) -> T
+(typeDeclaration type If < (typeList (anyType (valueType T))) > alias (anyType (functionType ( (typeList (anyType (valueType Boolean)) , (anyType (valueType T)) , (anyType (valueType T))) ) -> (valueType T))))
+
