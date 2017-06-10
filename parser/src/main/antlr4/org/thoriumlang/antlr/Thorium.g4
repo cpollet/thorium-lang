@@ -56,8 +56,8 @@ functionType
     | '(' functionType ')' '->' '(' functionType ')'
     | valueType '->' valueType
     | valueType '->' '(' functionType ')'
-    | '(' typeList ')' '->' valueType
-    | '(' typeList ')' '->' '(' functionType ')'
+    | '(' typeList? ')' '->' valueType
+    | '(' typeList? ')' '->' '(' functionType ')'
     ;
 typeList
     : anyType (',' anyType)*
