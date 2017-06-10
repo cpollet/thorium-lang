@@ -3,7 +3,6 @@ type
 define
 extends
 
-
 // type definition
 type Shape :
   area() -> Float,
@@ -26,6 +25,10 @@ type List<T> :
 type Void
 type Any
 type Boolean
+type String
+type Integer extends Number
+type Float extends Number
+type Decimal extends Number
 type Error : message() -> String
 type Value<T> : value() -> T
 type Runnable : run() -> Any
@@ -36,6 +39,15 @@ define If<T> : Value<T>(Value<Boolean> condition, Value<T> true, Value<T> false)
   
   value() -> @condition.value() ? @true.value() : @false.value()
 }
+define If<T> : () -> T (Boolean c, Value<T> v1, Value<T> v2) {
+    If(Boolean c, Value<T> v) : If(c, v, () -> T$Null())
+    apply() -> @c ? @v1.value() : @v2.value()
+}
+something() -> {
+  a = 0;
+  If(a < 10, () -> { a = a + 1 });
+}
+If(a == 1, Value(1), Value(2)).value
 
 // classes
 define Square : Shape(Integer width) { // this will create an attribute width of type Integer, accessible with @width
