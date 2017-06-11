@@ -26,12 +26,15 @@ public class TestParse {
     public static Collection<String[]> data() {
         return Arrays.asList(
                 new String[]{"/specs/syntax/anyType.txt"},
-                new String[]{"/specs/syntax/typeDeclaration.txt"}
+                new String[]{"/specs/syntax/typeDeclaration.txt"},
+                new String[]{"/specs/syntax/methodDeclaration.txt"}
         );
     }
 
     @Test
     public void testSpec() {
+        log.info("Started executing {}", filename);
+
         Specs specs = new Specs(filename);
 
         for (Specs.Spec spec : specs) {

@@ -1,0 +1,16 @@
+methodDeclaration
+
+a() -> A
+(methodDeclaration a ( ) -> (valueType A))
+
+a(A) -> A
+(methodDeclaration a ( (typeList (anyType (valueType A))) ) -> (valueType A))
+
+a(A, A) -> A
+(methodDeclaration a ( (typeList (anyType (valueType A)) , (anyType (valueType A))) ) -> (valueType A))
+
+a(A -> A) -> (A -> A)
+(methodDeclaration a ( (typeList (anyType (functionType (valueType A) -> (valueType A)))) ) -> ( (functionType (valueType A) -> (valueType A)) ))
+
+a(A<A>) -> A
+(methodDeclaration a ( (typeList (anyType (valueType A < (typeList (anyType (valueType A))) >))) ) -> (valueType A))

@@ -70,7 +70,8 @@ methodDeclarationList
     : methodDeclaration (',' methodDeclaration)*
     ;
 methodDeclaration
-    : LCFirstIdentifier '(' typeList? ')' '->' anyType
+    : LCFirstIdentifier '(' typeList? ')' '->' valueType
+    | LCFirstIdentifier '(' typeList? ')' '->' '(' functionType ')'
     ;
 
 
