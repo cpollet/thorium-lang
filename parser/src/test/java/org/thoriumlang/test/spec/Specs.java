@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -33,7 +35,7 @@ public class Specs implements Iterable<Specs.Spec> {
 
         return Arrays.stream(pairs)
                 .map(p -> p.split("\n"))
-                .map(a -> new Spec(root, a[0], a[1]))
+                .map(a -> new Spec(root, a[0], a[1], a.length > 2 ? a[2] : null))
                 .collect(Collectors.toList())
                 .iterator();
     }
@@ -51,6 +53,15 @@ public class Specs implements Iterable<Specs.Spec> {
         private final String root;
         private final String code;
         private final String tree;
+        private final String error;
+
+        public List<String> getErrors() {
+            if (error == null) {
+                return Collections.emptyList();
+            }
+
+            return Collections.singletonList(error);
+        }
     }
 
 }

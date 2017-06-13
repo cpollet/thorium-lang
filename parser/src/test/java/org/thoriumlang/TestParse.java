@@ -42,7 +42,8 @@ public class TestParse {
             ThoriumAssert
                     .assertThat(spec.getCode())
                     .from(spec.getRoot())
-                    .producesSyntaxTree(spec.getTree());
+                    .producesSyntaxTree(spec.getTree())
+                    .hasErrors(spec.getErrors());
         }
     }
 }

@@ -1,5 +1,9 @@
 anyType
 
+A ->
+(anyType (functionType A ->))
+no viable alternative at input 'A->'
+
 A
 (anyType (valueType A))
 
